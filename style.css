@@ -21,11 +21,17 @@ body {
   /* background-color: pink; */
 }
 
+#options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
 #toDraw {
   width: 300px;
   height: 50px;
   background-color: rgb(255, 204, 183);
-  margin-bottom: 1em;
   display: flex;
   align-items: center;
   padding-left: 1em;
@@ -33,6 +39,17 @@ body {
   font-weight: 500;
   font-size: 15px;
   color: rgb(100, 100, 100);
+  border-radius: 0.25em;
+}
+
+#rubber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  background-color:rgb(190, 203, 255);
+  margin-left: 1em;
   border-radius: 0.25em;
 }
 
