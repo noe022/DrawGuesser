@@ -65,7 +65,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: yellow; */
 }
 
 #prediction {
