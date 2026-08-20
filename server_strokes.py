@@ -13,15 +13,13 @@ app.add_middleware(
   allow_headers=["*"],
 )
 
-@app.get('/get', tags=['greet'])
-def greet():
-  return "Hi demon!"
+@app.get('/get', tags=['strokes'])
+def get_strokes():
+  return strokes
 
-# Send strokes to server
 @app.post('/post', tags=['strokes'])
-def get_strokes(strokes: list = Body()):
-  print(strokes)
+def send_strokes(new_strokes: list = Body()):
+  print(new_strokes)
   strokes.append({
-    'all_strokes': strokes,
+    'all_strokes': new_strokes,
   })
-

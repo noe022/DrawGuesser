@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext('2d');
 const rubber = document.getElementById("rubber");
+const send = document.getElementById("send");
 
 let initialX;
 let initialY;
@@ -24,7 +25,7 @@ function draw(cursorX, cursorY) {
   context.stroke();
 
   let currentStroke = strokes[strokes.length - 1];
-  currentStroke.push([cursorX, cursorY]);
+  currentStroke.push([[cursorX, cursorY]]);
 
   initialX = cursorX;
   initialY = cursorY;
@@ -34,15 +35,6 @@ function mouseClick(evt) {
   initialX = evt.offsetX;
   initialY = evt.offsetY;
   strokes.push([initialX, initialY]);
-  // Send strokes to server -> RNN
-  fetch('http://127.0.0.1:8000/post', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(strokes)
-  })
-    .then(response => response.json())
-    .then(data => console.log(data))
-
   canvas.addEventListener('mousemove', mouseMoving);
 }
 
@@ -58,11 +50,19 @@ function erase() {
   context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function send_to_server() {
+  // Send strokes to server -> RNN
+  fetch('http://127.0.0.1:8000/post', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(strokes)
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+
 canvas.addEventListener('mousedown', mouseClick);
 canvas.addEventListener('mouseup', mouseUp);
 rubber.addEventListener('mousedown', erase);
 
-fetch('http://127.0.0.1:8000/get') // I do the promise
-  .then(response => response.json()) // Se resuelve promesa y obtengo respuesta
-  // Si se resuelve obtengo el dato
-  .then(data => console.log(data))
+send.addEventListener('mousedown', send_to_server);

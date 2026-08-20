@@ -18,7 +18,6 @@ body {
   justify-content: center;
   align-items: center;
   flex: 5;
-  /* background-color: pink; */
 }
 
 #options {
@@ -62,7 +61,7 @@ body {
 #result_box {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
@@ -79,4 +78,21 @@ body {
   font-size: 15px;
   color: rgb(100, 100, 100);
   border-radius: 0.25em;
+}
+
+#send{
+  width: 70px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:rgb(255, 233, 190);
+  margin-left: 1em;
+  border-radius: 0.25em;
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 15px;
+  color: rgb(100, 100, 100);
+  border: none;
+  cursor: pointer;
 }
