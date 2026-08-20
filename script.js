@@ -5,23 +5,26 @@ const rubber = document.getElementById("rubber");
 let initialX;
 let initialY;
 
-// Método que nos permite iniciar un nuevo trazo
-// Para poder dibujar en diferentes partes del lienzo
+let strokes = [];
+
+// Method that allows us to start a new stroke
+// To enable drawing on different parts of the canvas
 function draw(cursorX, cursorY) {
   context.beginPath();
-  // Comenzar el trazo
+  // Start stroke
   context.moveTo(initialX, initialY);
-  // Propiedades del pincel
+  // Define brush properties
   context.lineWidth = 5;
-  // Color
   context.strokeStyle = "#000";
-  // Terminaciones del pincel
   context.lineCap = "round";
   context.lineJoin = "round";
-  // Mover el trazo
+  // Prepare stroke trajectory
   context.lineTo(cursorX, cursorY);
-  // Dibujar el trazo
+  // Draw stroke
   context.stroke();
+
+  let currentStroke = strokes[strokes.length - 1];
+  currentStroke.push([cursorX, cursorY]);
 
   initialX = cursorX;
   initialY = cursorY;
@@ -30,7 +33,15 @@ function draw(cursorX, cursorY) {
 function mouseClick(evt) {
   initialX = evt.offsetX;
   initialY = evt.offsetY;
-  draw(initialX, initialY);
+  strokes.push([initialX, initialY]);
+  // Send strokes to server -> RNN
+  fetch('http://127.0.0.1:8000/post', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(strokes)
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
 
   canvas.addEventListener('mousemove', mouseMoving);
 }
@@ -50,3 +61,8 @@ function erase() {
 canvas.addEventListener('mousedown', mouseClick);
 canvas.addEventListener('mouseup', mouseUp);
 rubber.addEventListener('mousedown', erase);
+
+fetch('http://127.0.0.1:8000/get') // I do the promise
+  .then(response => response.json()) // Se resuelve promesa y obtengo respuesta
+  // Si se resuelve obtengo el dato
+  .then(data => console.log(data))
