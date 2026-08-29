@@ -13,13 +13,12 @@ app.add_middleware(
   allow_headers=["*"],
 )
 
-@app.get('/get', tags=['strokes'])
+@app.get('/get_strokes', tags=['strokes'])
 def get_strokes():
   return strokes
 
-@app.post('/post', tags=['strokes'])
+@app.post('/post_strokes', tags=['strokes'])
 def send_strokes(new_strokes: list = Body()):
-  print(new_strokes)
   strokes.append({
     'all_strokes': new_strokes,
   })
