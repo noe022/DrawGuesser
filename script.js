@@ -7,10 +7,9 @@ const pred = document.getElementById("prediction");
 
 let initialX;
 let initialY;
-
 let strokes = [];
-
 categories = ['book', 'car', 'crown', 'flamingo', 'moon', 'rabbit', 'submarine', 'watermelon']
+const MIN_DIST = 15;
 
 // Method that allows us to start a new stroke
 // To enable drawing on different parts of the canvas
@@ -28,8 +27,15 @@ function draw(cursorX, cursorY) {
   // Draw stroke
   context.stroke();
 
+  // Dataset has a smaller amount of points, we 
+  // set a min distance to add a point
   let currentStroke = strokes[strokes.length - 1];
-  currentStroke.push([cursorX, cursorY]);
+  let lastPoint = currentStroke[currentStroke.length - 1];
+  let dist = Math.hypot(cursorX - lastPoint[0], cursorY - lastPoint[1]);
+
+  if (dist >= MIN_DIST) {
+    currentStroke.push([cursorX, cursorY]);
+  }
 
   initialX = cursorX;
   initialY = cursorY;
@@ -94,5 +100,4 @@ async function connect_server() {
 canvas.addEventListener('mousedown', mouseClick);
 canvas.addEventListener('mouseup', mouseUp);
 rubber.addEventListener('mousedown', erase);
-
 send.addEventListener('mousedown', connect_server);
