@@ -38,7 +38,8 @@ function draw(cursorX, cursorY) {
 function mouseClick(evt) {
   initialX = evt.offsetX;
   initialY = evt.offsetY;
-  strokes.push([[initialX, initialY]]);
+  strokes.push([]);
+  strokes[strokes.length - 1].push([initialX, initialY]);
   canvas.addEventListener('mousemove', mouseMoving);
 }
 
@@ -75,18 +76,19 @@ function showPrediction(input_pred) {
   pred.appendChild(element_pred);
 }
 
-function connect_server() {
-  let prediction = "";
-  // Send strokes to server -> RNN
-  fetch('http://127.0.0.1:8000/post_strokes', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(strokes)
-  })
-    .then(response => response.json())
-    .then(data => prediction = data.prediction)
-
-  return showPrediction(prediction);
+async function connect_server() {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/post_strokes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(strokes)
+    });
+  
+    const data = await response.json();
+    showPrediction(data.prediction);
+  } catch (error) {
+    console.error('Error'. error);
+  }
 }
 
 canvas.addEventListener('mousedown', mouseClick);
