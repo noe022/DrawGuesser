@@ -1,15 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: "Inter";
+  overflow-x: hidden;
 }
 
 #main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  align-items: center;
+  min-height: 100vh;
   width: 100vw;
   background-color: rgb(252, 252, 252);
+  gap: 2em;
+  padding: 2em 0;
 }
 
 #board {
@@ -17,14 +25,13 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 5;
+  gap: 2em;
 }
 
 #options {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1em;
 }
 
 #to_draw {
@@ -56,11 +63,12 @@ body {
 #canvas {
   border-radius: 1em;
   border: 1px, solid rgb(226, 226, 226);
-  background-color: white
+  background-color: white;
+  width: 1500px;
+  height: 700px;
 }
 
 #result_box {
-  flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -69,6 +77,7 @@ body {
 
 #prediction {
   width: 300px;
+  max-width: 300px;
   height: 50px;
   background-color: rgb(255, 204, 183);
   display: flex;
@@ -96,4 +105,28 @@ body {
   color: rgb(100, 100, 100);
   border: none;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  #main,
+  #board {
+    gap: 1.5em;
+  }
+
+  #to_draw {
+    width: 80%;
+    max-width: 200px;
+  }
+
+  #canvas {
+    width: clamp(250px, 90vw, 350px);
+    height: auto;
+    aspect-ratio: 1 / 1.75;
+    margin: 0 1em;
+  }
+
+  #prediction {
+    width: 60%;
+    max-width: 300px;
+  }
 }
