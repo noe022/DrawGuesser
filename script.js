@@ -101,7 +101,7 @@ function showPrediction(input_pred) {
 
 async function connect_server() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/post_strokes', {
+    const response = await fetch('http://192.168.1.42:8000/post_strokes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(strokes)
@@ -135,4 +135,3 @@ reload.addEventListener('mousedown', reloadWord);
 canvas.addEventListener('touchstart', mouseClick, { passive: false });
 canvas.addEventListener('touchmove', mouseMoving, { passive: false });
 canvas.addEventListener('touchend', mouseUp);
-
