@@ -112,7 +112,7 @@ async function connect_server() {
   } catch (error) {
     console.error('Error:', error);
   }
-  setInterval(() => location.reload(), 1000);
+  setInterval(() => location.reload(), 2000);
 }
 
 let zoom = 1;
