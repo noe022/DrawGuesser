@@ -11,6 +11,20 @@ let strokes = [];
 categories = ['book', 'car', 'crown', 'flamingo', 'moon', 'rabbit', 'submarine', 'watermelon']
 const MIN_DIST = 15;
 
+canvas.width = 700;
+canvas.height = 700;
+
+function getLogicalCoords(evt) {
+  const rect = canvas.getBoundingClientRect();
+  const isTouch = evt.touches && evt.touches.length > 0;
+  const clientX = isTouch ? evt.touches[0].clientX : evt.clientX;
+  const clientY = isTouch ? evt.touches[0].clientY : evt.clientY;
+  return {
+    x: (clientX - rect.left) * (canvas.width / rect.width),
+    y: (clientY - rect.top) * (canvas.height / rect.height),
+  };
+}
+
 // Method that allows us to start a new stroke
 // To enable drawing on different parts of the canvas
 function draw(cursorX, cursorY) {
@@ -42,15 +56,17 @@ function draw(cursorX, cursorY) {
 }
 
 function mouseClick(evt) {
-  initialX = evt.offsetX;
-  initialY = evt.offsetY;
+  const { x, y } = getLogicalCoords(evt);
+  initialX = x;
+  initialY = y;
   strokes.push([]);
   strokes[strokes.length - 1].push([initialX, initialY]);
   canvas.addEventListener('mousemove', mouseMoving);
 }
 
 function mouseMoving(evt) {
-  draw(evt.offsetX, evt.offsetY);
+  const { x, y } = getLogicalCoords(evt);
+  draw(x, y);
 }
 
 function mouseUp(evt) {
@@ -59,9 +75,9 @@ function mouseUp(evt) {
 
 function erase() {
   context.clearRect(0, 0, canvas.width, canvas.height);
+  strokes = [];
 }
 
-// Generate random word to draw
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -93,11 +109,22 @@ async function connect_server() {
     const data = await response.json();
     showPrediction(data.prediction);
   } catch (error) {
-    console.error('Error'. error);
+    console.error('Error:', error);
   }
+  setInterval(() => location.reload(), 1000);
+}
+
+let zoom = 1;
+function setZoom(delta) {
+  zoom = Math.min(Math.max(zoom + delta, 1), 2.5);
+  canvas.style.transform = `scale(${zoom})`;
 }
 
 canvas.addEventListener('mousedown', mouseClick);
 canvas.addEventListener('mouseup', mouseUp);
 rubber.addEventListener('mousedown', erase);
 send.addEventListener('mousedown', connect_server);
+
+canvas.addEventListener('touchstart', mouseClick, { passive: false });
+canvas.addEventListener('touchmove', mouseMoving, { passive: false });
+canvas.addEventListener('touchend', mouseUp);

@@ -64,8 +64,10 @@ body {
   border-radius: 1em;
   border: 1px, solid rgb(226, 226, 226);
   background-color: white;
-  width: 1500px;
-  height: 700px;
+  width: 700px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  touch-action: none;
 }
 
 #result_box {
@@ -119,10 +121,7 @@ body {
   }
 
   #canvas {
-    width: clamp(250px, 90vw, 350px);
-    height: auto;
-    aspect-ratio: 1 / 1.75;
-    margin: 0 1em;
+    width: 92vw;
   }
 
   #prediction {
