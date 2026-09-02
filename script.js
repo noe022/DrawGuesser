@@ -4,6 +4,7 @@ const rubber = document.getElementById("rubber");
 const send = document.getElementById("send");
 const toDraw = document.getElementById("to_draw");
 const pred = document.getElementById("prediction");
+const reload = document.getElementById("reload");
 
 let initialX;
 let initialY;
@@ -120,11 +121,18 @@ function setZoom(delta) {
   canvas.style.transform = `scale(${zoom})`;
 }
 
+function reloadWord() {
+  toDraw.innerHTML = "<p>Draw:</p>";
+  randomInput();
+}
+
 canvas.addEventListener('mousedown', mouseClick);
 canvas.addEventListener('mouseup', mouseUp);
 rubber.addEventListener('mousedown', erase);
-send.addEventListener('mousedown', connect_server);
+send.addEventListener('mousedown', connect_server);   
+reload.addEventListener('mousedown', reloadWord);
 
 canvas.addEventListener('touchstart', mouseClick, { passive: false });
 canvas.addEventListener('touchmove', mouseMoving, { passive: false });
 canvas.addEventListener('touchend', mouseUp);
+

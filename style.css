@@ -58,6 +58,19 @@ body {
   background-color:rgb(190, 203, 255);
   margin-left: 1em;
   border-radius: 0.25em;
+  cursor: pointer;
+}
+
+#reload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color:rgb(190, 203, 255);
+  margin-left: 0.75em;
+  border-radius: 0.25em;
+  cursor: pointer;
 }
 
 #canvas {
@@ -109,23 +122,65 @@ body {
   cursor: pointer;
 }
 
+#zoom {
+  display: none;
+
+}
+
 @media (max-width: 480px) {
-  #main,
-  #board {
-    gap: 1.5em;
+  #options {
+    width: 90vw;
+    max-width: 100%;
   }
 
   #to_draw {
-    width: 80%;
-    max-width: 200px;
+    min-width: 0;
+    overflow-wrap: normal;
+    text-align: center;
   }
 
   #canvas {
     width: 92vw;
   }
 
+  #rubber,
+  #reload {
+    width: 60px;
+    height: 50px;
+  }
+
+  #rubber {
+    margin-left: 1em;
+  }
+  
+  #reload {
+    margin-left: 1em;
+  }
+
+  #result_box {
+    width: 80vw;
+  }
+
   #prediction {
-    width: 60%;
-    max-width: 300px;
+    flex: 1;
+    width: auto;
+  }
+
+  #zoom {
+    display: flex;
+    gap: 1em;
+  }
+
+  #zin, #zout {
+    border: none;
+    width: 50px;
+    height: 50px;
+    background-color:rgb(190, 203, 255);
+    border-radius: 0.25em;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgb(100, 100, 100);
+    font-family: "Poppins";
+    position: relative;
   }
 }
