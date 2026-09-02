@@ -15,7 +15,7 @@ app.add_middleware(
   allow_headers=["*"],
 )
 
-norm_stats = torch.load('norm_stats.pth')
+norm_stats = torch.load('norm_stats.pth', map_location=torch.device('cpu'))
 mean_xy = norm_stats['mean_xy']
 std_xy = norm_stats['std_xy']
 
@@ -45,7 +45,7 @@ def preprocess_strokes(raw_strokes):
   return x, lengths
 
 model = RNNModule(input_size=3, hidden_size=128, output_size=8)
-model.load_state_dict(torch.load('model_trained.pth'))
+model.load_state_dict(torch.load('model_trained.pth', map_location=torch.device('cpu')))
 model.eval()
 
 @app.post('/post_strokes', tags=['strokes'])
