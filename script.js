@@ -101,7 +101,7 @@ function showPrediction(input_pred) {
 
 async function connect_server() {
   try {
-    const response = await fetch('http://192.168.1.42:8000/post_strokes', {
+    const response = await fetch('https://drawguesser.onrender.com/post/strokes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(strokes)
