@@ -10,7 +10,7 @@ app = FastAPI()
 
 app.add_middleware(
   CORSMiddleware,
-  allow_origins=["https://noe022.github.io/DrawGuesser/"],
+  allow_origins=["*"],
   allow_methods=["*"],
   allow_headers=["*"],
 )
