@@ -39,8 +39,8 @@ def preprocess_strokes(raw_strokes):
     raise ValueError("No hay puntos para preprocesar")
 
   x = torch.tensor(sequence, dtype=torch.float32).unsqueeze(0)
-  x[:, :, 0] = (x[:, :, 0] - mean_xy[0]) / (std_xy[0] + 1e-6)   # normaliza dx
-  x[:, :, 1] = (x[:, :, 1] - mean_xy[1]) / (std_xy[1] + 1e-6)   # normaliza dy
+  x[:, :, 0] = (x[:, :, 0] - mean_xy[0]) / (std_xy[0] + 1e-6)   # normalize dx
+  x[:, :, 1] = (x[:, :, 1] - mean_xy[1]) / (std_xy[1] + 1e-6)   # normalize dy
   lengths = torch.tensor([len(sequence)], dtype=torch.long)
   return x, lengths
 

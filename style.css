@@ -75,9 +75,9 @@ body {
 
 #canvas {
   border-radius: 1em;
-  border: 1px, solid rgb(226, 226, 226);
+  border: 1px solid rgb(226, 226, 226);
   background-color: white;
-  width: 700px;
+  width: min(700px, 90vw, 70vh);
   aspect-ratio: 1 / 1;
   height: auto;
   touch-action: none;
