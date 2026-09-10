@@ -15,6 +15,10 @@ const MIN_DIST = 15;
 canvas.width = 700;
 canvas.height = 700;
 
+const API_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+  ? "http://127.0.0.1:8000"
+  : "https://drawguesser.onrender.com";
+
 function getLogicalCoords(evt) {
   const rect = canvas.getBoundingClientRect();
   const isTouch = evt.touches && evt.touches.length > 0;
@@ -101,7 +105,7 @@ function showPrediction(input_pred) {
 
 async function connect_server() {
   try {
-    const response = await fetch('https://drawguesser.onrender.com/post_strokes', {
+    const response = await fetch(`${API_URL}/post_strokes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(strokes)
